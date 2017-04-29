@@ -1,0 +1,32 @@
+[
+    {
+        "Id": 1,
+        "Title": "Avengers",
+        "Year": 2012,
+        "Rating": "7/10"
+    },
+    {
+        "Id": 2,
+        "Title": "SpIder HomeComing",
+        "Year": 2017,
+        "Rating": "7/10"
+    },
+    {
+        "Id": 3,
+        "Title": "Mummy",
+        "Year": 2016,
+        "Rating": "8/10"
+    },
+    {
+        "Id": 4,
+        "Title": "Ghost in the Shell",
+        "Year": 2016,
+        "Rating": "7/10"
+    },
+    {
+        "Id": 5,
+        "Title": "Logan",
+        "Year": 2017,
+        "Rating": "9.5/10"
+    }
+]
