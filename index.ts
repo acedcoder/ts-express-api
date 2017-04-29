@@ -4,7 +4,8 @@ let json = require('./movie.json');
 
 let app = express();
 let router = express.Router();
-let port = process.env.PORT || 3000;
+
+app.set('port', process.env.PORT || 3000);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -76,8 +77,8 @@ router.route('/:id')
 
 app.use('/v1/', router);
 
-app.listen(port, (err) => {
+app.listen(app.get('port'), (err) => {
     if (err) throw err;
 
-    console.log(`Server running: localhost:${port}`);
+    console.log(`Server running: localhost:${app.get('port')}`);
 });
