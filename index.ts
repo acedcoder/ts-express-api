@@ -1,24 +1,25 @@
-import express = require('express');
-import bodyParser = require('body-parser');
-let json = require('./movie.json');
+import express = require("express");
+import bodyParser = require("body-parser");
 
-let app = express();
-let router = express.Router();
+let json: any = require("./movie.json");
 
-app.set('port', process.env.PORT || 3000);
+let app: express.Application = express();
+let router: express.Router = express.Router();
+
+app.set("port", process.env.PORT || 3000);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-router.route('/')
+router.route("/")
     .get((req, res) => {
         res.status(200).json(json);
     })
     .post((req, res) => {
-        let id = req.body.Id,
-            title = req.body.Title,
-            year = req.body.Year,
-            rating = req.body.Rating;
+        let id: number = req.body.Id,
+            title: string = req.body.Title,
+            year: number = req.body.Year,
+            rating: string = req.body.Rating;
 
         if (id && title && year && rating) {
             json.push(req.body);
@@ -27,25 +28,25 @@ router.route('/')
             res.status(500).json({ error: "There was an error." });
         }
     });
-router.route('/:id')
+router.route("/:id")
     .get((req, res) => {
-        let id = req.params.id;
+        let id: number = req.params.id;
 
-        for (var i = 0; i < json.length; i++) {
-            var element = json[i];
-            if (element.Id == id) {
+        for (var i: number = 0; i < json.length; i++) {
+            var element: any = json[i];
+            if (element.Id === id) {
                 res.status(200).json(element);
             }
         }
     })
     .put((req, res) => {
-        let id = req.params.id;
+        let id: number = req.params.id;
 
         if (id && req.body.Title && req.body.Year && req.body.Rating) {
-            for (var i = 0; i < json.length; i++) {
-                var element = json[i];
+            for (var i: number = 0; i < json.length; i++) {
+                var element: any = json[i];
 
-                if (element.Id == id) {
+                if (element.Id === id) {
                     element.Title = req.body.Title;
                     element.Year = req.body.Year;
                     element.Rating = req.body.Rating;
@@ -58,16 +59,17 @@ router.route('/:id')
         }
     })
     .delete((req, res) => {
-        let indexToDel = -1;
+        let indexToDel: number = -1;
 
-        for (var i = 0; i < json.length; i++) {
-            var element = json[i];
+        for (var i: number = 0; i < json.length; i++) {
+            var element: any = json[i];
 
-            if (element.Id == req.params.id) {
+            if (element.Id === req.params.id) {
                 indexToDel = i;
             }
         }
 
+        // tslint:disable-next-line:no-bitwise
         if (~indexToDel) {
             json.splice(indexToDel, 1);
         }
@@ -75,10 +77,12 @@ router.route('/:id')
         res.status(200).json(json);
     });
 
-app.use('/v1/', router);
+app.use("/v1/", router);
 
-app.listen(app.get('port'), (err) => {
-    if (err) throw err;
+app.listen(app.get("port"), (err) => {
+    if (err) {
+        throw err;
+    }
 
-    console.log(`Server running: localhost:${app.get('port')}`);
+    console.log(`Server running: localhost:${app.get("port")}`);
 });
